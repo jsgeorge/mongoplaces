@@ -12,26 +12,20 @@ export default function UsersPage() {
   const [error, setError] = useState("");
   const { user, isloggedin } = useContext(UserContext);
   const { users, setusers } = useContext(UsersContext);
-  
+
   useEffect(() => {}, []);
 
   return (
     <div className="page-wrapper">
       <div className="row">
         <div className="col-lg-2 col-md-2  col-sm-3 col-xs-3 Lsidebar">
-          <UserCard />
+          {user ? <UserCard user={user} /> : null}
         </div>
-        <div className="col-lg-7 col-md-7 col-sm-8 col-xs-9 content">
+        <div className="col-lg-10 col-md-10 col-sm-8 col-xs-9 content">
           <div className="content-wrapper">
-            <h3>Follow Users</h3>
-         
+            <h3>Users</h3>
             <UsersListing />
           </div>
-        </div>
-        <div className="col-lg-3 col-md-3 col-sm-2 col-xs-4 Rsidebar">
-          {/* <div className="desktop-categories">
-            <Categories />
-          </div> */}
         </div>
       </div>
     </div>

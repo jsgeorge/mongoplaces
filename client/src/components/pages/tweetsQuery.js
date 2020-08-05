@@ -4,12 +4,12 @@ import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import TweetItem from "../tweets/item";
-import { TweetContext } from "../../context/tweet-context";
+import { PlaceContext } from "../../context/tweet-context";
 import Categories from "../categories";
 import UserCard from "../user/card";
 
 export default function TweetQuery({ match }) {
-  const [state, dispatch] = useContext(TweetContext);
+  const [state, dispatch] = useContext(PlaceContext);
   const [error, setError] = useState("");
   const [header, setHeader] = useState("");
   //const [filters, setFilters] = useState([]);
@@ -43,14 +43,14 @@ export default function TweetQuery({ match }) {
       // if (listype == "main") {
 
       try {
-        const response = await axios.post("/chats/view", filters);
+        const response = await axios.post("/places/view", filters);
         dispatch({
-          type: "FETCH_TWEETS",
+          type: "FETCH_PLACES",
           payload: response.data,
         });
       } catch (err) {
         console.log(err);
-        setError("Cannot retrieve the selected tweets");
+        setError("Cannot retrieve the selected places");
       }
     };
     fetchData();
@@ -68,15 +68,15 @@ export default function TweetQuery({ match }) {
               <FontAwesomeIcon
                 icon={faLongArrowAltLeft}
                 size="lg"
-                style={{ color: "blue" }}
+                style={{ color: "red" }}
               />
             </Link>
           </div>
           <div className="tweets-wrapper">
-            {state.tweets &&
-            state.tweets.articles &&
-            state.tweets.articles.length > 0 ? (
-              state.tweets.articles.map((tweet) => (
+            {state.places &&
+            state.places.articles &&
+            state.places.articles.length > 0 ? (
+              state.places.articles.map((tweet) => (
                 <TweetItem key={tweet._id} tweet={tweet} />
               ))
             ) : (

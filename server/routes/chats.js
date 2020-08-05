@@ -1,4 +1,4 @@
-const Chat = require("../models/chat");
+const Place = require("../models/place");
 const User = require("../models/user");
 const Category = require("../models/category");
 const router = require("express").Router();
@@ -6,9 +6,9 @@ const mongoose = require("mongoose");
 const { auth } = require("../middleware/auth");
 
 router.get("/", (req, res) => {
-  Chat.find({}, (err, chats) => {
+  Place.find({}, (err, Places) => {
     if (err) return res.status(400).send(err);
-    res.status(200).send(chats);
+    res.status(200).send(Places);
   });
 });
 
@@ -16,8 +16,8 @@ router.post("/view", (req, res) => {
   let findArgs = {};
   if (req.body.filters) {
     //findArgs = req.body.filters[0];
-    if (req.body.filters[0].text)
-      findArgs = { text: { $regex: "/*" + req.body.filters[0].text + "/*" } };
+    if (req.body.filters[0].name)
+      findArgs = { name: { $regex: "/*" + req.body.filters[0].name + "/*" } };
     else findArgs = req.body.filters[0];
   }
 
@@ -25,7 +25,7 @@ router.post("/view", (req, res) => {
   let sortBy = "createdAt";
   let limit = 1000;
 
-  Chat.find(findArgs)
+  Place.find(findArgs)
     .sort([["createdAt", "desc"]])
     .limit(limit)
     .exec((err, articles) => {
@@ -39,17 +39,21 @@ router.post("/view", (req, res) => {
 });
 
 router.post("/article", auth, (req, res) => {
-  let newChat = {
+  let newPlace = {
     author: req.userid,
-    text: req.body.text,
+    name: req.body.name,
+    description: req.body.description,
     tag: req.body.category,
+    city: req.body.city,
+    state: req.body.state,
+    country: req.body.country,
     images: req.body.images,
     comments: [],
     likes: 0,
   };
-  console.log(newChat);
-  const chat = new Chat(newChat);
-  chat.save((err, doc) => {
+  console.log(newPlace);
+  const place = new Place(newPlace);
+  place.save((err, doc) => {
     if (err) return res.status(401).json({ addSuccess: false, message: err });
     let tag = req.body.category;
     Category.find({ name: tag }, (err2, ctgry) => {
@@ -72,12 +76,12 @@ router.post("/article", auth, (req, res) => {
 
 router.post("/comment", auth, (req, res) => {
   console.log(req.body);
-  const text = req.body.text;
+  const name = req.body.name;
   const user = req.body.user;
   const uid = req.userid;
-  Chat.findOneAndUpdate(
+  Place.findOneAndUpdate(
     { _id: req.query.id },
-    { $push: { comments: { uid: uid, user: user, text: text } } },
+    { $push: { comments: { uid: uid, user: user, name: name } } },
     { new: true },
     (err, doc) => {
       if (err)
@@ -90,20 +94,19 @@ router.post("/comment", auth, (req, res) => {
 });
 
 const SaveCategoryToTag = (id, ctgry) => {
-  Chat.findOneAndUpdate(
+  Place.findOneAndUpdate(
     { _id: id },
     { tag: ctgry },
     { new: true },
     (err, doc) => {}
   );
-  console.log("new tag added to chat");
+  console.log("new tag added to Place");
 };
 router.get("/articles", (req, res) => {
-  console.log("/chats/articles");
   let order = "desc";
   let sortBy = "createdAt";
 
-  Chat.find()
+  Place.find()
     .stream()
     .on("data", function (doc) {
       if (doc.category && !doc.tag) {
@@ -118,7 +121,7 @@ router.get("/articles", (req, res) => {
           }
         });
       } else if (doc.tag) {
-        console.log(doc.tag, doc.text);
+        console.log(doc.tag, doc.name);
         //     console.log('tag ',doc.tag)
       }
     })
@@ -133,7 +136,7 @@ router.get("/articles", (req, res) => {
   // console.log(item.category)
   //})
 
-  Chat.find()
+  Place.find()
     .populate("category")
     .sort([[sortBy, order]])
     .exec((err, articles) => {
@@ -146,8 +149,8 @@ router.get("/article", (req, res) => {
   let type = req.query.type;
   let items = req.query.id;
   let id = req.query.id;
- 
-  Chat.find({ _id: id })
+
+  Place.find({ _id: id })
     .populate("category")
     .exec((err, docs) => {
       return res.status(200).send(docs);
@@ -155,7 +158,7 @@ router.get("/article", (req, res) => {
 });
 
 router.post("/like", auth, (req, res) => {
-  Chat.findOneAndUpdate(
+  Place.findOneAndUpdate(
     { _id: req.query.id },
     { $inc: { likes: 1 } },
     { new: true },
@@ -177,16 +180,16 @@ router.post("/like", auth, (req, res) => {
 });
 
 router.post("/dislike", auth, (req, res) => {
-  Chat.findOneAndUpdate(
+  Place.findOneAndUpdate(
     { _id: req.query.id },
     { $inc: { likes: -1 } },
     { new: true },
     (err, doc) => {
       if (err) {
-        console.log("chat update error", err);
+        console.log("Place update error", err);
         return res.status(401).json({ editSuccess: false, message: err });
       }
-      console.log("decrimented chat likes");
+      console.log("decrimented Place likes");
       User.findOneAndUpdate(
         { _id: req.userid },
         { $pull: { likes: { id: mongoose.Types.ObjectId(req.query.id) } } },
@@ -214,7 +217,7 @@ router.post("/update", auth, (req, res) => {
       message: "You are not alowwed to edit the tweet",
     });
   }
-  Chat.findOneAndUpdate(
+  Place.findOneAndUpdate(
     { _id: req.query.id },
     { $set: req.body },
     { new: true },
@@ -236,7 +239,7 @@ router.delete("/", auth, (req, res) => {
       message: "You are not alowwed to delete the tweet",
     });
   }
-  Chat.findOneAndDelete({ _id: req.query.id }, (err, doc) => {
+  Place.findOneAndDelete({ _id: req.query.id }, (err, doc) => {
     if (err) return res.status(401).json({ editSuccess: false, message: err });
 
     User.find({}, (err, users) => {

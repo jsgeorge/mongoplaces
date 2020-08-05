@@ -77,22 +77,28 @@ const SigninPage = () => {
   //if (state.user && state.user[0]) return <Redirect to="/tweets" />;
   if (isloggedin) return <Redirect to="/tweets" />;
   return (
-    <div>
+    <div className="page-wrapper">
       <div className="row">
         <div className="col-lg-3 col-md-3  col-sm-2  Lsidebar "></div>
-        <div className="col-lg-6 col-md-6 col-sm-6 content noborder">
+        <div className="col-lg-6 col-md-6 col-sm-6 content ">
+          <h3>Sign In</h3>
+
           <div className="form">
-            <div className="form-header">
-              <h3>Sign In</h3>
-            </div>
             <div className="form-wrapper">
               {/* {state && state.message.content && (
               <FlashMessage message={state.message} />
             )} */}
               {errors.form && <div className="has-error">{errors.form}</div>}
               <div
-                className={classnames("form-group", { "has-error": errors })}
+                className={classnames("form-group", {
+                  "has-error": errors.email,
+                })}
               >
+                {errors.email ? (
+                  <span className="help-block">{errors.email}</span>
+                ) : (
+                  <label>Email</label>
+                )}
                 {errors.email && (
                   <span className="help-block">{errors.email}</span>
                 )}
@@ -107,10 +113,14 @@ const SigninPage = () => {
                 />
               </div>
               <div
-                className={classnames("form-group", { "has-error": errors })}
+                className={classnames("form-group", {
+                  "has-error": errors.password,
+                })}
               >
-                {errors.password && (
+                {errors.password ? (
                   <span className="help-block">{errors.password}</span>
+                ) : (
+                  <label>Password</label>
                 )}
 
                 <input
@@ -133,7 +143,7 @@ const SigninPage = () => {
                 </Link>
                 <button
                   type="button"
-                  className="btn btn-primary btn-sm btn-login"
+                  className="btn btn-danger btn-sm btn-login"
                   data-testid="add-shout"
                   onClick={() => onSubmit()}
                 >
@@ -143,7 +153,6 @@ const SigninPage = () => {
             </div>
           </div>
         </div>
-        <div className="col-lg-3 col-md-3 col-sm-3 Rsidebar noborder"></div>
       </div>
     </div>
   );

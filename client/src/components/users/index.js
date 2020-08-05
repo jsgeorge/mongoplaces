@@ -4,14 +4,14 @@ import { Redirect } from "react-router-dom";
 import UserItem from "./item";
 import { UsersContext } from "../../context/users-context";
 import { UserContext } from "../../context/user-context";
-import  LoadingSpinner  from "../utils/LoadingSpinner";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 export default function UsersListing() {
   const { isloggedin, user } = useContext(UserContext);
   const [error, setError] = useState("");
   const [header, setHeader] = useState("");
   const { users, setusers } = useContext(UsersContext);
-  const [ isLoading, setisLoading ] = useState(true);
+  const [isLoading, setisLoading] = useState(true);
 
   //const [filters, setFilters] = useState([]);
   //let sortBy = { sortby: "createdAt", order: "desc" };
@@ -39,13 +39,17 @@ export default function UsersListing() {
     <div className="content-wrapper">
       <div className="tweets-wrapper">
         {error ? <div className="has-error">{error}</div> : null}
-         {isLoading && (
-             <div className="center">
-               <LoadingSpinner asOverlay />
-               </div>
-           )}
+        {isLoading && (
+          <div className="center">
+            <LoadingSpinner asOverlay />
+          </div>
+        )}
         {users && users.length > 0 ? (
-          users.map((u) => <UserItem key={u._id} cuser={u} />)
+          <div className="row">
+            {users.map((u) => (
+              <UserItem key={u._id} cuser={u} />
+            ))}
+          </div>
         ) : (
           <span>
             {!error && (
@@ -55,7 +59,6 @@ export default function UsersListing() {
             )}
           </span>
         )}
-
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Avatar from "./../user/avatar";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UserCard from "../user/card";
 
 const EditUser = () => {
   const { user, setuser, isloggedin } = useContext(UserContext);
@@ -93,19 +94,21 @@ const EditUser = () => {
   return (
     <div className="page-wrapper">
       <div className="row">
-        <div className="col-lg-3 col-md-3  col-sm-2  Lsidebar"></div>
-        <div className="col-lg-6 col-md-6 col-sm-6 content">
-          <div className="form-wrapper">
-            <h3>
-              <Link to={`/user`}>
-                <FontAwesomeIcon
-                  icon={faLongArrowAltLeft}
-                  size="lg"
-                  style={{ color: "blue" }}
-                />
-              </Link>
-              Edit Your Profile
-            </h3>
+        <div className="col-lg-2 col-md-2  col-sm-3 col-xs-3 Lsidebar">
+          {user ? <UserCard user={user} /> : null}
+        </div>
+        <div className="col-lg-7 col-md-7 col-sm-8  col-xs-9 content">
+          <h3>
+            <Link to={`/user/profile`}>
+              <FontAwesomeIcon
+                icon={faLongArrowAltLeft}
+                size="sm"
+                style={{ color: "red" }}
+              />
+            </Link>
+            Edit Your Profile
+          </h3>
+          <div className="form">
             {/* <h5>
               {user ? <Avatar images={user.images} size="avt-lg" /> : null}
               {user && !user.username ? user.name + " " + user.lastname : null}
@@ -223,7 +226,7 @@ const EditUser = () => {
             <div></div>
           </div>
         </div>
-        <div className="col-lg-3 col-md-3 col-sm-3 Rsidebar"></div>
+        {/* <div className="col-lg-2 col-md-2 col-sm-2 Rsidebar"></div> */}
       </div>
     </div>
   );

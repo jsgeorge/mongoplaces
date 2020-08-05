@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import UserItem2 from "../users/item2";
 import { UsersContext } from "../../context/users-context";
 import { UserContext } from "../../context/user-context";
-
+import UserCard from "./card";
 export default function FollowingListing({ following }) {
   const { user, setuser, isloggedin } = useContext(UserContext);
   const [error, setError] = useState("");

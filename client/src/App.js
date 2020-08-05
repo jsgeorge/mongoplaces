@@ -9,7 +9,7 @@ import Header from "./components/layout/header";
 //import { UserContextProvider } from "./context/user-context";
 import { UserContext } from "./context/user-context";
 import { UsersContext } from "./context/users-context";
-import { TweetContextProvider } from "./context/tweet-context";
+import { PlaceContextProvider } from "./context/tweet-context";
 import { CategoryContextProvider } from "./context/category-context";
 import setAuthorizationToken from "./utils/setAuthToken";
 
@@ -20,8 +20,12 @@ function App() {
 
   useEffect(() => {
     const setAuthUser = async (token) => {
-      const response = await axios.post("/users/id", { id: token.id });
-      setuser(response.data.user);
+      try {
+        const response = await axios.post("/users/id", { id: token.id });
+        setuser(response.data.user);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     if (localStorage.jwtToken) {
@@ -36,14 +40,14 @@ function App() {
     <UserContext.Provider value={{ isloggedin, setisloggedin, user, setuser }}>
       <UsersContext.Provider value={{ users, setusers }}>
         <CategoryContextProvider>
-          <TweetContextProvider>
+          <PlaceContextProvider>
             <BrowserRouter>
               <Header />
-              <div className="container page-wrapper">
+              <div className="container ">
                 <Routes />
               </div>
             </BrowserRouter>
-          </TweetContextProvider>
+          </PlaceContextProvider>
         </CategoryContextProvider>
       </UsersContext.Provider>
     </UserContext.Provider>

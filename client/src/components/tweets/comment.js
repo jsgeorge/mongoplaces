@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 //import FileUpload from "../utils/fileupload";
 import classnames from "classnames";
 import axios from "axios";
-import { TweetContext } from "../../context/tweet-context";
+import { PlaceContext } from "../../context/tweet-context";
 //import { flashErrorMessage } from "../layout/flash-message";
 import Avatar from "../user/avatar";
 
@@ -11,7 +11,7 @@ const NewCommentForm = ({ id, user }) => {
   const [tweetid] = useState(id);
   const [userid] = useState(user._id);
   //const [author] = useState(user.username);
-  const [dispatch] = useContext(TweetContext);
+  const [dispatch] = useContext(PlaceContext);
   const [avatar] = useState(user.avatar);
   const [errors, setErrors] = useState({});
   const [comment, setComment] = useState("");

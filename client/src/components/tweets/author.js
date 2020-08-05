@@ -42,31 +42,37 @@ export default function AuthorDetail({ author, type }) {
   return (
     <span style={{ display: "block" }}>
       {/* {type == "tweet" ? ( */}
-      <Link to={`/user/${author}/profile`}>
+      {type && type === "user" ? (
+        <span className="avatar-wrapper-lg">
+          <Avatar images={images} size="avt-lg" />
+        </span>
+      ) : (
         <span className="avatar-wrapper">
           <Avatar images={images} size="avt-sm" />
         </span>
+      )}
 
-        <span className="tweet-author-wrapper">
-          {type && type === "user" ? (
-            <span style={{ fontWeight: "bold" }}>
-              {name} {lastname} <br />
-            </span>
-          ) : null}
+      <span className="tweet-author-wrapper">
+        {type && type === "user" ? (
+          <span>
+            {name} {lastname} <br />
+          </span>
+        ) : null}
 
-          
-          {type && type == "user" ? (
-           
-              <span>
-                {"@"}{username ? username : name + " " + lastname}
-              </span>
-           
-          ) : (
-            <span ><strong>{"@"}{username ? username : name + " " + lastname}</strong> </span>
-          )}
-         
-        </span>
-      </Link>
+        {type && type == "user" ? (
+          <span className="username-font">
+            {"@"}
+            {username ? username : name + " " + lastname}
+          </span>
+        ) : (
+          <span className="username-font">
+            <strong>
+              {"@"}
+              {username ? username : name + " " + lastname}
+            </strong>{" "}
+          </span>
+        )}
+      </span>
     </span>
   );
 }

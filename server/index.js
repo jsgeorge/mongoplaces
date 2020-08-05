@@ -8,7 +8,7 @@ const path = require("path");
 //Routes
 const users = require("./routes/users");
 const auth = require("./routes/auth");
-const chats = require("./routes/chats");
+const places = require("./routes/chats");
 const categories = require("./routes/categories");
 
 const app = express();
@@ -18,22 +18,20 @@ require("dotenv").config();
 
 //Mongooose
 mongoose.Promise = global.Promise;
-mongoose
-  .connect(
-    process.env.MONGODB_URI || "mongodb://localhost/react/mongodb/mongotweet"
-  )
-  .then(() => {})
-  .catch(() => {
-    console.log("Connection faild");
-  });
 // mongoose
 //   .connect(
-//     process.env.MONGODB_CONNSTR 
+//     process.env.MONGODB_URI || "mongodb://localhost/react/mongodb/mongoplaces"
 //   )
 //   .then(() => {})
-//   .catch((err) => {
-//     console.log("Connection failed", err);
-//   })
+//   .catch(() => {
+//     console.log("Connection faild");
+//   });
+mongoose
+  .connect(process.env.MONGODB_CONNSTR)
+  .then(() => {})
+  .catch((err) => {
+    console.log("Connection failed", err);
+  });
 //bodypasrer
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -61,16 +59,16 @@ app.use("/users/byid", users);
 app.use("/users/logout", users);
 app.use("/users/uploadimage", users);
 
-//chats
-app.use("/chats", chats);
-app.use("/chats/article", chats);
-app.use("/chats/articles", chats);
-app.use("/chats/articles_by_id", chats);
-app.use("/chats/like", chats);
-app.use("/chats/dislike", chats);
-app.use("/chats/view", chats);
-app.use("/chats/comment", chats);
-app.use("/chats/update", chats);
+//places
+app.use("/places", places);
+app.use("/places/article", places);
+app.use("/places/articles", places);
+app.use("/places/articles_by_id", places);
+app.use("/places/like", places);
+app.use("/places/dislike", places);
+app.use("/places/view", places);
+app.use("/places/comment", places);
+app.use("/places/update", places);
 
 //cattegories
 app.use("/categories", categories);

@@ -14,14 +14,13 @@ export default function HomePage() {
   if (isloggedin) return <Redirect to="/tweets" />;
   return (
     <div className="home-wrapper">
-      <h1 className="welcome-text primary-clr">Welcome to mongoTweet</h1>
+      <h1 className="welcome-text primary-clr">Welcome to MongoPlaces</h1>
       <div
         className="button_wrapper"
         style={{
           width: "100%",
-          paddingTop: "10%",
+          paddingTop: "15%",
           paddingBottom: "10%",
-          background: "#fff",
         }}
       >
         <div
@@ -37,7 +36,7 @@ export default function HomePage() {
             {" "}
             Login
           </Link>
-          <Link to="/auth/signup" className="btn btn-primary btnHome ">
+          <Link to="/auth/signup" className="btn btn-danger btnHome ">
             Signup
           </Link>{" "}
         </div>{" "}

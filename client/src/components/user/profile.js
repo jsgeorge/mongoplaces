@@ -13,7 +13,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import FollowingListing from "./following";
 import LikeListing from "./likes";
-import  LoadingSpinner  from "../utils/LoadingSpinner";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 // import jwtDecode from "jwt-decode";
 // import axios from "axios";
@@ -25,24 +25,24 @@ const ProfilePage = ({ match }) => {
   const [formSuccess, setFormSucess] = useState(false);
   const [otheruser, setotheruser] = useState({});
   const [error, setError] = useState("");
-const [ isLoading, setisLoading ] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
     // console.log("in profile user._id", user._id);
-   
+
     if (match.params.id) {
       setisLoading(true);
-  
+
       // console.log("another user id", match.params.id);
       const getUser = async () => {
         try {
           const response = await axios.get(`/users/id?id=${match.params.id}`);
           setotheruser(response.data.userdata);
-           setisLoading(false);
+          setisLoading(false);
         } catch (error) {
           console.log("ERROR", error);
           setError("unknown user");
-           setisLoading(false);
+          setisLoading(false);
         }
       };
       getUser();
@@ -73,7 +73,6 @@ const [ isLoading, setisLoading ] = useState(false);
     const { name, lastname, username, images } = usr;
     return (
       <span>
-     
         <h5>
           {images && images.length > 0 ? (
             <Avatar images={images} size="avt-lg" />
@@ -85,7 +84,11 @@ const [ isLoading, setisLoading ] = useState(false);
             {usr && !username ? name + " " + lastname : username}
           </span>
         </h5>
-
+        {match.params.id ? (
+          <div className="user-item-text">
+            <TweetListing uid={match.params.id} type={"number"} />
+          </div>
+        ) : null}
         <h5>{!match.params.id ? user.email : null}</h5>
       </span>
     );
@@ -102,57 +105,47 @@ const [ isLoading, setisLoading ] = useState(false);
         </div>
 
         <div className="col-lg-7 col-md-7 col-sm-8 col-xs-9 content">
-           <div className="user-page">
-           {isLoading && (
-             <div className="center">
-               <LoadingSpinner asOverlay />
-               </div>
-           )}
-              <Link to="/user" className="mobile">
-                <FontAwesomeIcon
-                  icon={faLongArrowAltLeft}
-                  size="lg"
-                  className="back-link primary-clr"
-                />
-              </Link>
-              <Link to="/tweets" className="desk">
-                <FontAwesomeIcon
-                  icon={faLongArrowAltLeft}
-                  size="lg"
-                  className="back-link primary-clr"
-                />
-              </Link>
-              <h4>User Profile</h4>
-              <div>{displayUserProfile()}</div>
-              {!match.params.id ? (
-                <span>
-                  <button
-                    className="btn btn-default btnDefault btn-sm"
-                    style={{ color: "#111" }}
-                    onClick={() => onLogout()}
-                  >
-                    Logout
-                  </button>{" "}
-                  <Link to="/user/edit" className="btn btn-primary btn-sm">
-                    Edit
-                  </Link>
-                </span>
-              ) : null}
-              <br />
-              {!match.params.id ? (
-                <div>
-                  <strong>Likes</strong> {user.likes ? user.likes.length : 0}{" "}
-                  <strong>Following</strong>
-                  {user.following ? user.following.length : 0}
-                </div>
-              ) : null}
+          <div className="user-page">
+            {isLoading && (
+              <div className="center">
+                <LoadingSpinner asOverlay />
+              </div>
+            )}
 
+            <h3>User Profile</h3>
+            <div className="content-wrapper">
+              <div className="section-wrapper" id="profile">
+                <div>{displayUserProfile()}</div>
+                {!match.params.id ? (
+                  <span>
+                    <button
+                      className="btn btn-default btnDefault btn-sm"
+                      style={{ color: "#111" }}
+                      onClick={() => onLogout()}
+                    >
+                      Logout
+                    </button>{" "}
+                    <Link to="/user/edit" className="btn btn-danger btn-sm">
+                      Edit
+                    </Link>
+                  </span>
+                ) : null}
+                <br />
+                {!match.params.id ? (
+                  <div>
+                    <TweetListing uid={user._id} type={"number"} />
+                    <strong>Likes</strong> {user.likes ? user.likes.length : 0}{" "}
+                    <strong>Following</strong>
+                    {user.following ? user.following.length : 0}
+                  </div>
+                ) : null}
+              </div>
               <div className="usertweets">
-                <h5>
+                <h3>
                   <strong>
-                    {!match.params.id ? "Your Tweets" : "Latest Tweets"}
+                    {!match.params.id ? "Your Places" : "Latest Places"}
                   </strong>
-                </h5>
+                </h3>
                 <div>
                   {!match.params.id ? (
                     <TweetListing uid={user._id} />
@@ -190,10 +183,7 @@ const [ isLoading, setisLoading ] = useState(false);
               </div>
             ) : null} */}
             </div>
-          
-        </div>
-        <div className="col-lg-3 col-md-3 col-sm-2 col-xs-4 Rsidebar">
-          <Categories />
+          </div>
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TweetContext } from "../../context/tweet-context";
+import { PlaceContext } from "../../context/tweet-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 const LikeTweetButton = ({ id, uid, userlikes }) => {
-  const [state, dispatch] = useContext(TweetContext);
+  const [state, dispatch] = useContext(PlaceContext);
   const [error, setError] = useState("");
   const [like, setLike] = useState(false);
 
@@ -70,14 +70,15 @@ const LikeTweetButton = ({ id, uid, userlikes }) => {
 
   return (
     <span>
-    <button
-      className="like_link"
-      onClick={() => {
-        handlechatLike();
-      }}
-    >
-      {handleStar()}
-    </button> Like
+      <button
+        className="like_link"
+        onClick={() => {
+          handlechatLike();
+        }}
+      >
+        {handleStar()}
+      </button>{" "}
+      Like
     </span>
   );
 };

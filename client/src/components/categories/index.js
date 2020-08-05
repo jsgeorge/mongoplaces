@@ -2,16 +2,16 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import { CategoryContext } from "../../context/category-context";
-import  LoadingSpinner  from "../utils/LoadingSpinner";
+import LoadingSpinner from "../utils/LoadingSpinner";
 
 const Categories = () => {
   const [state, dispatch] = useContext(CategoryContext);
   const [error, setError] = useState("");
-   const [ isLoading, setisLoading ] = useState(true);
+  const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
-      setisLoading(true);
-   
+    setisLoading(true);
+
     const fetchData = async () => {
       try {
         const response = await axios.get("/categories");
@@ -19,17 +19,17 @@ const Categories = () => {
           type: "FETCH_CATEGORIES",
           payload: response.data,
         });
+        setError("");
         //console.log(response.data);
-         setisLoading(false);
+        setisLoading(false);
       } catch (err) {
         console.log(err);
         setError("Cannot retrieve the categories. Network error");
-      setisLoading(false);
+        setisLoading(false);
       }
     };
     fetchData();
   }, [dispatch]);
-  if (error || !state.categories) return <div>No current categories</div>;
   const qrytype = "tag";
 
   return (
@@ -41,10 +41,11 @@ const Categories = () => {
       <div className="category-card">
         <div>
           {isLoading && (
-             <div className="center">
-               <LoadingSpinner asOverlay />
-               </div>
-           )}
+            <div className="center">
+              <LoadingSpinner asOverlay />
+            </div>
+          )}
+          {error && <div className="has-error">{error}</div>}
           {state.categories.length > 0 ? (
             <ul className="category-nav">
               {state.categories.map((ctgry) => (
@@ -58,7 +59,9 @@ const Categories = () => {
               ))}
             </ul>
           ) : (
-            <p>No Current categories</p>
+            <div>
+              <p>{!error && "No Current categories"}</p>
+            </div>
           )}{" "}
         </div>
       </div>

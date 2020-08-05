@@ -83,10 +83,9 @@ const SignupPage = () => {
       <div className="row">
         <div className="col-lg-3 col-md-3  col-sm-2  Lsidebar"></div>
         <div className="col-lg-6 col-md-6 col-sm-6 content noborder">
+          <h3>Sign Up</h3>
+
           <div className="form">
-            <div className="form-header">
-              <h3>Sign Up</h3>
-            </div>
             {errors.form && <div className="has-error">{errors.form}</div>}
             <div
               className={classnames("form-group", {
@@ -96,7 +95,7 @@ const SignupPage = () => {
               {errors.name ? (
                 <span className="help-block">{errors.name}</span>
               ) : (
-                <span className="error-space" />
+                <label>First Name</label>
               )}
               <input
                 className="form-control"
@@ -117,7 +116,7 @@ const SignupPage = () => {
               {errors.lastname ? (
                 <span className="help-block">{errors.lastname}</span>
               ) : (
-                <span className="error-space" />
+                <label>Last Name</label>
               )}
               <input
                 className="form-control"
@@ -138,7 +137,7 @@ const SignupPage = () => {
               {errors.email ? (
                 <span className="help-block">{errors.email}</span>
               ) : (
-                <span className="error-space" />
+                <label>Login Email</label>
               )}
               <input
                 className="form-control"
@@ -158,7 +157,7 @@ const SignupPage = () => {
               {errors.password ? (
                 <span className="help-block">{errors.password}</span>
               ) : (
-                <span className="error-space" />
+                <label>Password</label>
               )}
               <input
                 className="form-control"
@@ -178,7 +177,7 @@ const SignupPage = () => {
               {errors.username ? (
                 <span className="help-block">{errors.username}</span>
               ) : (
-                <span className="error-space" />
+                <label>Username</label>
               )}
               <input
                 className="form-control"
@@ -209,7 +208,7 @@ const SignupPage = () => {
               </Link>
               <button
                 type="button"
-                className="btn btn-primary btn-login"
+                className="btn btn-danger btn-login"
                 data-testid="add-shout"
                 onClick={() => onSubmit()}
               >
@@ -218,7 +217,6 @@ const SignupPage = () => {
             </div>
           </div>
         </div>
-        <div className="col-lg-3 col-md-3 col-sm-3 Rsidebar noborder"></div>
       </div>
     </div>
   );

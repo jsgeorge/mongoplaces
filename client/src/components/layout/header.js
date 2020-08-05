@@ -41,25 +41,21 @@ const Header = () => {
       )}
       <div className="header">
         <nav
-          className="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+          className="navbar navbar-expand-lg navbar-dark bg-danger fixed-top primary"
           style={{
-            borderBottom: "1px solid #cddded",
             margin: "0",
-            padding: "5px 15px",
+            padding: "15px",
           }}
         >
           <div className="container">
             <div className="navbar-header">
               {/* {!state.user && !state.user[0] ? ( */}
-              {!isloggedin ? (
-                <Link to="/">
-                  <div className="logo" />
-                </Link>
-              ) : (
-                <Link to="/tweets">
-                  <div className="logo" />
-                </Link>
-              )}
+
+              <Link to="/tweets">
+                {" "}
+                <span className="desk">MongoPlaces</span>
+                <span className="mobile">MP</span>
+              </Link>
             </div>
             {isloggedin ? (
               <div className="navbar-left desktop-search">
@@ -68,19 +64,14 @@ const Header = () => {
             ) : null}
             <div className="navbar-right">
               <Link to="/tweets">
-                <FontAwesomeIcon
-                  icon={faHome}
-                  size="lg"
-                  className="primary-clr"
-                />{" "}
-                <span className="nav-link-lbl"> Home</span>
+                <FontAwesomeIcon icon={faHome} size="lg" className="btn-clr" />{" "}
               </Link>
 
               <Link to="/tweets/search" className="btnMobileSrch">
                 <FontAwesomeIcon
                   icon={faSearch}
                   size="lg"
-                  className="primary-clr"
+                  className="btn-clrr"
                 />
               </Link>
               {/* {state.user && state.user[0] ? ( */}
@@ -93,7 +84,7 @@ const Header = () => {
                   <FontAwesomeIcon
                     icon={faPlusCircle}
                     size="lg"
-                    className="primary-clr"
+                    className="btn-clr"
                   />
                 </Link>
               ) : null}

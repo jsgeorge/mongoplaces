@@ -1,10 +1,10 @@
 import React, { useReducer, createContext } from "react";
 
-export const TweetContext = createContext();
+export const PlaceContext = createContext();
 
 const initialState = {
-  tweets: [],
-  tweet: {},
+  places: [],
+  place: {},
   author: {},
   message: {}, // {type: 'success|fail', title:info|error' content:'error'}
 };
@@ -12,29 +12,29 @@ const initialState = {
 function reducer(state, action) {
   //console.log(action.type);
   switch (action.type) {
-    case "FETCH_TWEETS": {
+    case "FETCH_PLACES": {
       return {
         ...state,
-        tweets: action.payload,
-        tweet: {},
+        places: action.payload,
+        place: {},
         message: {},
       };
     }
-    case "FETCH_TWEET": {
+    case "FETCH_PLACE": {
       return {
         ...state,
-        tweet: action.payload,
+        place: action.payload,
         message: {},
       };
     }
-    case "CREATE_TWEET": {
+    case "CREATE_PLACE": {
       return {
         ...state,
-        tweets: [...state.tweets, action.payload],
+        places: [...state.places, action.payload],
         message: {
           type: "success",
           title: "Success",
-          content: "New Tweet created",
+          content: "New place created",
         },
       };
     }
@@ -45,32 +45,32 @@ function reducer(state, action) {
       };
     }
 
-    case "LIKE_TWEET": {
-      const tweet = action.payload;
+    case "LIKE_PLACE": {
+      const place = action.payload;
       return {
         ...state,
-        tweets: state.tweets.map((item) =>
-          item._id === tweet._id ? tweet : item
+        places: state.places.map((item) =>
+          item._id === place._id ? place : item
         ),
         message: {
           type: "succes",
           title: "Like succesfull",
-          content: "Tweet is liked by you",
+          content: "place is liked by you",
         },
       };
     }
 
-    case "DISLIKE_TWEET": {
-      const tweet = action.payload;
+    case "DISLIKE_PLACE": {
+      const place = action.payload;
       return {
         ...state,
-        tweets: state.tweets.map((item) =>
-          item._id === tweet._id ? tweet : item
+        places: state.places.map((item) =>
+          item._id === place._id ? place : item
         ),
         message: {
           type: "succes",
           title: "Like succesfull",
-          content: "Tweet is liked by you",
+          content: "place is liked by you",
         },
       };
     }
@@ -93,13 +93,13 @@ function reducer(state, action) {
   }
 }
 
-export const TweetContextProvider = (props) => {
+export const PlaceContextProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { children } = props;
 
   return (
-    <TweetContext.Provider value={[state, dispatch]}>
+    <PlaceContext.Provider value={[state, dispatch]}>
       {children}
-    </TweetContext.Provider>
+    </PlaceContext.Provider>
   );
 };

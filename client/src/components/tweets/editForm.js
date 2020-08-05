@@ -4,21 +4,25 @@ import FileUpload from "../utils/fileupload";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { TweetContext } from "../../context/tweet-context";
+import { PlaceContext } from "../../context/tweet-context";
 import { UserContext } from "../../context/user-context";
 import Avatar from "./../user/avatar";
 import AuthorDetail from "./author";
 import Moment from "moment";
 
-const EditTweetForm = ({ item }) => {
+const EditPlaceForm = ({ item }) => {
   const user = useContext(UserContext);
-  const [dispatch] = useContext(TweetContext);
+  const [dispatch] = useContext(PlaceContext);
   const [errors, setErrors] = useState({});
   const [tweet, setTweet] = useState("");
   const [category, setCategory] = useState("");
   const [edited, setEdited] = useState({
-    text: item.text,
+    name: item.name,
     tag: item.tag,
+    city: item.city,
+    state: item.state,
+    country: item.country,
+    description: item.description,
     images: item.images,
   });
   const [formSuccess, setFormSucess] = useState(false);
@@ -31,20 +35,41 @@ const EditTweetForm = ({ item }) => {
     // setTweet(item.text);
     // setCategory(item.tag);
   });
-const displayDate = (d) => {
+  const displayDate = (d) => {
     return Moment(d).format("MMM D h:mm A");
   };
   const validData = () => {
     let errs = {};
     setErrors({});
-    if (!edited.text) {
-      errs.text = "Inalid/Missing tweet";
+    if (!edited.name) {
+      errs.name = "Inalid/Missing name";
     }
     if (!edited.tag) {
       errs.tag = "inalid/missing category";
     }
+    setErrors({});
+    if (!edited.city) {
+      errs.city = "Inalid/Missing city";
+    }
+    if (!edited.state) {
+      errs.state = "inalid/missing state";
+    }
+    setErrors({});
+    if (!edited.country) {
+      errs.country = "Inalid/Missing country";
+    }
+    if (!edited.description) {
+      errs.description = "inalid/missing description";
+    }
     //console.log(errs);
-    if (!edited.text || !edited.tag) {
+    if (
+      !edited.name ||
+      !edited.tag ||
+      !edited.name ||
+      !edited.city ||
+      !edited.state ||
+      !edited.description
+    ) {
       setErrors(errs);
       return false;
     }
@@ -61,7 +86,7 @@ const displayDate = (d) => {
     if (validData()) {
       let updTweet = {
         ...item,
-        text: edited.text,
+        name: edited.name,
         tag: edited.tag,
       };
       console.log(updTweet);
@@ -92,65 +117,102 @@ const displayDate = (d) => {
   if (!user) return <Redirect to="/" />;
 
   return (
-    <div className="add-tweet">
+    <div className="edit-tweet">
       {user && edited ? (
-        <div className="tweet-form" >
+        <div className="form">
           <div className="author-line">
-              <AuthorDetail author={item.author} />
-              <span className="chat-date">{displayDate(item.createdAt)}</span>
+            <AuthorDetail author={item.author} />
+            <span className="chat-date">{displayDate(item.createdAt)}</span>
           </div>
           <div className="form-group">
-         
-              <textarea
-                name="text"
-                className="form-control"
-                style={{ fontSize: "20px", borderBottom:"1px solid #ccc" }}
-                value={edited.text}
-                onChange={handleChange}
-                rows="3"
-              />
+            <label>Place Name</label>
+            <textarea
+              name="name"
+              className="form-control"
+              value={edited.name}
+              onChange={handleChange}
+              rows="2"
+            />
           </div>
           <div className="form-group">
-                Tag
-                <input
-                  name="tag"
-                  className="form-control"
-                  type="text"
-                  placeholder="category tags"
-                  value={edited.tag}
-                  onChange={handleChange}
-                  style={{borderBottom:"1px solid #ccc"}}
-                />
-              </div>
-              {edited.images && edited.images.length > 0 ? (
-                <div
-                  className="image"
-                  style={{
-                    background: `url(${renderCardImage(
-                      edited.images
-                    )}) no-repeat`,
-                  }}
-                />
-              ) : null}  
-              <div className="form-group" style={{marginTop:"15px"}}> 
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => onSubmit()}
-                style={{float:"right"}}
-              >
-                reTweet
-              </button>
-              </div>
-            {errors.tweet ? (
-              <div className="has-error">Error {errors.tweet}</div>
-            ) : null}
-            {errors.category ? (
-              <div className="has-error">Error {errors.category}</div>
-            ) : null}
-            {formError ? (
-              <div className="has-error">Error - Could not add tweet</div>
-            ) : null}
+            <label>Tag</label>
+            <input
+              name="tag"
+              className="form-control"
+              type="text"
+              placeholder="category tags"
+              value={edited.tag}
+              onChange={handleChange}
+              style={{ borderBottom: "1px solid #ccc" }}
+            />
+          </div>
+          <div className="form-group">
+            <label>City</label>
+            <input
+              name="city"
+              type="text"
+              className="form-control"
+              value={edited.city}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>State</label>
+            <input
+              name="state"
+              type="text"
+              className="form-control"
+              value={edited.state}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Country</label>
+            <input
+              name="country"
+              type="text"
+              className="form-control"
+              value={edited.country}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Description</label>
+            <textarea
+              name="description"
+              className="form-control"
+              value={edited.description}
+              onChange={handleChange}
+              rows="10"
+            />
+          </div>
+          {edited.images && edited.images.length > 0 ? (
+            <div
+              className="image"
+              style={{
+                background: `url(${renderCardImage(edited.images)}) no-repeat`,
+              }}
+            />
+          ) : null}
+          <div className="form-group" style={{ marginTop: "15px" }}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => onSubmit()}
+              style={{ float: "right" }}
+            >
+              reTweet
+            </button>
+          </div>
+          {errors.tweet ? (
+            <div className="has-error">Error {errors.tweet}</div>
+          ) : null}
+          {errors.category ? (
+            <div className="has-error">Error {errors.category}</div>
+          ) : null}
+          {formError ? (
+            <div className="has-error">Error - Could not add tweet</div>
+          ) : null}
         </div>
       ) : (
         <p>NO tweet found</p>
@@ -159,4 +221,4 @@ const displayDate = (d) => {
   );
 };
 
-export default EditTweetForm;
+export default EditPlaceForm;

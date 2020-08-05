@@ -5,7 +5,7 @@ import jwtDecode from "jwt-decode";
 import { Link } from "react-router-dom";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TweetContext } from "../../context/tweet-context";
+//import { PlaceContext } from "../../context/tweet-context";
 import { UserContext } from "../../context/user-context";
 import AuthorDetail from "./author";
 import UserCommands from "./userSection";
@@ -13,9 +13,11 @@ import UserEditCommands from "./userEditCmds";
 import UserCard from "../user/card";
 import Categories from "../categories";
 import Avatar from "../user/avatar";
+import { googleAPIKey } from "../utils/configure";
+import Iframe from "react-iframe";
 
-export default function TweetDetail({ tweet }) {
-  const [state, dispatch] = useContext(TweetContext);
+export default function TweetDetail({ place }) {
+  //const [state, dispatch] = useContext(TweetContext);
   // const [isAuthenticted, setIsAuthenticated] = useState(false);
   const [setError] = useState("");
   const [like, setLike] = useState(false);
@@ -31,10 +33,10 @@ export default function TweetDetail({ tweet }) {
   };
   //if (error) return <Redirect to="/auth/signin" />;
 
-  if (!tweet || !tweet.author)
+  if (!place || !place.author)
     return (
       <div className="card_item_wrapper">
-        <p>Cannot display the current tweet</p>
+        <p>Cannot display the current place</p>
       </div>
     );
 
@@ -42,41 +44,35 @@ export default function TweetDetail({ tweet }) {
     _id,
     author,
     avatar,
-    text,
+    name,
     tag,
     category,
+    city,
+    state,
+    country,
+    description,
     createdAt,
     images,
     comments,
     likes,
-  } = tweet;
+  } = place;
 
   return (
-    <div className="tweet-detail-wrapper" >
-      <div className="card-text">
-        <Link to="/tweets" className="backlink">
-          <FontAwesomeIcon
-            icon={faLongArrowAltLeft}
-            size="lg"
-            className="primary-clr"
-          />{" "}
-          Tweet
-        </Link>
+    <div className="place-detail-wrapper">
+      <div id="detail">
+        <div className="chat-text">
+          <div className="author-line">
+            <AuthorDetail author={author} />
 
-        <div className="author-line">
-          <AuthorDetail author={author} />
-          <Link to={`/tweets/query/tag/${tag}`} className="tag-link">
-            <strong>
-              {"#"}
-              {tag ? tag : null}
-            </strong>
-          </Link>
-          <span className="chat-date">{displayDate(createdAt)}</span>
+            <span className="chat-date">{displayDate(createdAt)}</span>
+            <Link to={`/places/query/tag/${tag}`} className="tag-link">
+              <strong>
+                {"#"}
+                {tag ? tag : null}
+              </strong>
+            </Link>
+          </div>
         </div>
-
-        <div className="chat-text-det">{text}</div>
-        </div>
-
         <div className="card-detail-image">
           {images && images.length > 0 && images[0].url ? (
             <div
@@ -85,8 +81,31 @@ export default function TweetDetail({ tweet }) {
                 background: `url(${renderCardImage(images)}) no-repeat`,
               }}
             />
+          ) : null}{" "}
+        </div>
+        <div className="chat-text">
+          <span className="place-name-det">{name} </span>
+          <br />
+          {city} {state} {country}
+          <br />
+          {description ? (
+            <div id="place-desc">
+              <p>{description}</p>
+            </div>
           ) : null}
-        
+        </div>
+        <div>
+          <div className="card-detail-map">
+            <Iframe
+              width="100%"
+              height="300"
+              frameborder="0"
+              style="border:none"
+              src={`https://www.google.com/maps/embed/v1/place?key=${googleAPIKey}&q=${name},${city} allowfullscreen`}
+            ></Iframe>
+          </div>
+        </div>
+        "
         <div className="tweet-detail">
           <div className="actions">
             Comments {comments ? comments.length : "0"} Likes:{" "}
@@ -103,7 +122,7 @@ export default function TweetDetail({ tweet }) {
                     <strong>
                       <AuthorDetail author={c.uid} type="comment" />
                     </strong>{" "}
-                    <span className="comment-text-det">{c.text}</span>
+                    <span className="comment-text-det">{c.name}</span>
                   </span>
                 ))}
               </span>

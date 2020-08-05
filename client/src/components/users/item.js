@@ -6,7 +6,6 @@ import Avatar from "../user/avatar";
 import AuthorDetail from "../tweets/author";
 import TweetListing from "../tweets";
 import { UserContext } from "../../context/user-context";
-
 const UserItem = ({ cuser }) => {
   const user = useContext(UserContext);
   const [error, setError] = useState("");
@@ -55,33 +54,37 @@ const UserItem = ({ cuser }) => {
   const { name, lastname, email, username, images } = cuser;
 
   return (
-    <div className="card_item_wrapper">
-      <div className="card-text">
-        <div className="user-item-wrapper">
-          <AuthorDetail author={cuser._id} type="user" />
+    <div className="col-lg-4 col-md-6 col-sm-8 col-xs-10 useritem">
+      <Link to={`/user/${cuser._id}/profile`}>
+        <div className="user-item-card">
+          <div className="card-text">
+            <div className="user-item-wrapper">
+              <AuthorDetail author={cuser._id} type="user" />
 
-          {/*   Show Number of Tweets         */}
-          <div className="user-item-text">
-            <TweetListing uid={cuser._id} type={"number"} />
+              {/*   Show Number of Tweets         */}
+              <div className="user-item-text">
+                <TweetListing uid={cuser._id} type={"number"} />
+              </div>
+            </div>
+
+            {/* {!following ? (
+            <button
+              className="btn btn-default btnDefault btn-sm btnFollow"
+              onClick={() => handleFollowUser(cuser._id)}
+            >
+              Follow
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary btn-sm btnFollow"
+              onClick={() => handleFollowUser(cuser._id)}
+            >
+              Following
+            </button>
+          )} */}
           </div>
         </div>
-
-        {!following ? (
-          <button
-            className="btn btn-default btnDefault btn-sm btnFollow"
-            onClick={() => handleFollowUser(cuser._id)}
-          >
-            Follow
-          </button>
-        ) : (
-          <button
-            className="btn btn-primary btn-sm btnFollow"
-            onClick={() => handleFollowUser(cuser._id)}
-          >
-            Following
-          </button>
-        )}
-      </div>
+      </Link>
     </div>
   );
 };

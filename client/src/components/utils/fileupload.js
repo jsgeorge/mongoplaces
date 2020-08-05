@@ -89,11 +89,7 @@ const FileUpload = ({ images, setImages }) => {
                 width: "200px",
               }}
             >
-              <FontAwesomeIcon
-                icon={faImage}
-                size="lg"
-                className="primary-clr"
-              />
+              <FontAwesomeIcon icon={faImage} size="lg" className="primary" />
             </div>
           </Dropzone>
 

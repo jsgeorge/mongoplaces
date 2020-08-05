@@ -26,12 +26,15 @@ const SearchTweets = () => {
   const name = "text";
   return (
     <div className="search-form">
-        <input value={srchStr} placeholder="search" onChange={(e) => setSrchStr(e.target.value)}/>
-         <Link to={`tweets/query/${qrytype}/${name}/${srchStr}`}>   <FontAwesomeIcon
-               icon={faSearch}
-                   size="lg"
-                   className="primary-clr"
-                 /></Link>
+      <input
+        value={srchStr}
+        placeholder="Search places .. "
+        onChange={(e) => setSrchStr(e.target.value)}
+      />
+      <Link to={`tweets/query/${qrytype}/${name}/${srchStr}`}>
+        {" "}
+        <FontAwesomeIcon icon={faSearch} size="lg" className="primary-clr" />
+      </Link>
     </div>
     // <div className="search-form">
     //   <div className={classnames("form-srch srch", { "has-error": errors })}>
@@ -41,16 +44,16 @@ const SearchTweets = () => {
     //       placeholder="search tweets"
     //       onChange={(e) => setSrchStr(e.target.value)}
     //     />
-       
+
     //       <Link to={`tweets/query/${qrytype}/${name}/${srchStr}`}>   <FontAwesomeIcon
     //               icon={faSearch}
     //               size="lg"
     //               className="primary-clr"
     //             /></Link>
-       
+
     //   </div>
     // </div>
-      );
+  );
 };
 
 export default SearchTweets;

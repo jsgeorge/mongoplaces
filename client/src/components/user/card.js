@@ -73,7 +73,7 @@ const UserCard = () => {
         </span>
       ) : (
         <span>
-          <Link className="btn btn-primary btnMed" to="/auth/signin">
+          <Link className="btn btn-danger btnMed primary" to="/auth/signin">
             Signin
           </Link>{" "}
           <br />

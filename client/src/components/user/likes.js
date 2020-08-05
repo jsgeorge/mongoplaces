@@ -1,10 +1,10 @@
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import TweetItem from "../tweets/item";
-import { TweetContext } from "../../context/tweet-context";
+import { PlaceContext } from "../../context/tweet-context";
 
 export default function LikeListing({ likes }) {
-  const [state, dispatch] = useContext(TweetContext);
+  const [state, dispatch] = useContext(PlaceContext);
   const [error, setError] = useState("");
   const [header, setHeader] = useState("");
   const [cnt, setcnt] = useState(0);
