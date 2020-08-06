@@ -95,51 +95,6 @@ const TweetItem = ({ tweet, uid }) => {
             )}{" "}
           </div>
         ) : null}
-        {/* <div className="button_wrapp">
-                <Link className="card_link" to={`/chat/${_id}`}>
-                  More
-                </Link>
-                </div>*/}
-        {/*<div className="button_wrapp">
-                <button
-                  className="like_link"
-                  onClick={() => {
-                    //   props.user.userData.isAuth
-                    //     ? this.props.dispatch(chatLike(props._id))
-                    //     : this.props.history.push("/login");
-                    chatLike(_id);
-                  }}
-                >
-                  <FontAwesomeIcon icon={faStar} /> Like
-                </button>
-              </div>
-              <div className="button_wrapp">
-                {favorite ? (
-                  <button
-                    className="add_favorites"
-                    onClick={() => {
-                      deleteFavorite(_id);
-                      setFavorite(false);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faHeart} />
-                    Delete Favorite
-                  </button>
-                ) : (
-                  <button
-                    className="add_favorites"
-                    onClick={() => {
-                      addFavorite(_id);
-                      setFavorite(false);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faHeart} />
-                    Add Favorite
-                  </button>
-                )}
-                  </div>*/}
-        {/* </div> */}
-        <div className="row" />
       </div>
     </div>
   );

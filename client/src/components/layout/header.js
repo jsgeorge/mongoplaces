@@ -71,7 +71,7 @@ const Header = () => {
                 <FontAwesomeIcon
                   icon={faSearch}
                   size="lg"
-                  className="btn-clrr"
+                  className="btn-clr"
                 />
               </Link>
               {/* {state.user && state.user[0] ? ( */}
