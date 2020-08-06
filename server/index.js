@@ -17,21 +17,22 @@ const app = express();
 require("dotenv").config();
 
 //Mongooose
+//mongo atlas whitelist 71.202.85.32/32
 mongoose.Promise = global.Promise;
-mongoose
-  .connect(
-    process.env.MONGODB_URI || "mongodb://localhost/react/mongodb/mongoplaces"
-  )
-  .then(() => {})
-  .catch(() => {
-    console.log("Connection faild");
-  });
 // mongoose
-//   .connect(process.env.MONGODB_CONNSTR)
+//   .connect(
+//     process.env.MONGODB_URI || "mongodb://localhost/react/mongodb/mongoplaces"
+//   )
 //   .then(() => {})
-//   .catch((err) => {
-//     console.log("Connection failed", err);
+//   .catch(() => {
+//     console.log("Connection faild");
 //   });
+mongoose
+  .connect(process.env.MONGODB_CONNSTR)
+  .then(() => {})
+  .catch((err) => {
+    console.log("Connection failed", err);
+  });
 //bodypasrer
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
