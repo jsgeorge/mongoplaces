@@ -139,6 +139,7 @@ const TweetItem = ({ tweet, uid }) => {
                 )}
                   </div>*/}
         {/* </div> */}
+        <div className="row" />
       </div>
     </div>
   );
