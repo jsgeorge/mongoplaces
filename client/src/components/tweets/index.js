@@ -4,7 +4,7 @@ import TweetItem from "./item";
 import { TweetContext } from "../../context/tweet-context";
 import LoadingSpinner from "../utils/LoadingSpinner";
 
-export default function TweetListing({ uid, type }) {
+export default function TweetListing({ qrytype, name, id, uid, type }) {
   //const [state, dispatch] = useContext(TweetContext);
   const [tweets, setTweets] = useState([]);
   const [error, setError] = useState("");
@@ -15,11 +15,16 @@ export default function TweetListing({ uid, type }) {
   let sortBy = { sortby: "createdAt", order: "desc" };
 
   const fetchTweets = async () => {
+    console.log(qrytype);
     let filters = [];
     setisLoading(true);
     setError("");
     if (uid) filters = { filters: [{ author: uid }] };
-
+    if (qrytype && qrytype == "category")
+      filters = { filters: [{ category: id }] };
+    if (qrytype && qrytype == "tag") {
+      filters = { filters: [{ tag: name }] };
+    }
     try {
       const response = await axios.post("/places/view", filters);
       // dispatch({

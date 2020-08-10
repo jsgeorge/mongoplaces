@@ -53,11 +53,15 @@ export default function AuthorDetail({ author, type }) {
       )}
 
       <span className="tweet-author-wrapper">
-        {type && type === "user" ? (
-          <span>
+        {type === "user" ? (
+          <span className="username-font">
             {name} {lastname} <br />
           </span>
-        ) : null}
+        ) : null
+        // <span className="tweetauth-font">
+        //   {name} {lastname} <br />
+        // </span>
+        }
 
         {type && type == "user" ? (
           <span className="username-font">
@@ -65,7 +69,7 @@ export default function AuthorDetail({ author, type }) {
             {username ? username : name + " " + lastname}
           </span>
         ) : (
-          <span className="username-font">
+          <span className="tweetauth-font">
             <strong>
               {"@"}
               {username ? username : name + " " + lastname}

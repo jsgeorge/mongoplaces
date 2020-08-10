@@ -123,12 +123,15 @@ export default function TweetDetail({ place }) {
                       <AuthorDetail author={c.uid} type="comment" />
                     </strong>{" "}
                     <span className="comment-text-det">{c.name}</span>
+                    <br />
+                    {c.text}
                   </span>
                 ))}
               </span>
             ) : (
               <p> No comments yet</p>
             )}
+            <div clasName="row" />
           </div>
         </div>
       </div>

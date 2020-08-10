@@ -36,6 +36,8 @@ const Routes = () => {
         exact
         component={TweetQuery}
       />
+      <Route path="/tweets/:qrytype/:name/:id" exact component={TweetsPage} />
+
       <Route path="/tweets/query/:qrytype/:name" exact component={TweetQuery} />
       <Route path="/tweets/:id/view" exact component={TweetDetailPage} />
       <Route path="/tweets/:id/edit" exact component={EditTweetPage} />

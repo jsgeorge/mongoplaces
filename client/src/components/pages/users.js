@@ -21,10 +21,15 @@ export default function UsersPage() {
         <div className="col-lg-2 col-md-2  col-sm-3 col-xs-3 Lsidebar">
           {user ? <UserCard user={user} /> : null}
         </div>
-        <div className="col-lg-10 col-md-10 col-sm-8 col-xs-9 content">
+        <div className="col-lg-7 col-md-10 col-sm-8 col-xs-9 content">
           <div className="content-wrapper">
             <h3>Users</h3>
             <UsersListing />
+          </div>
+        </div>
+        <div className="col-lg-3 col-md-2 col-sm-2 col-xs-4 Rsidebar">
+          <div className="desktop-categories">
+            <Categories />
           </div>
         </div>
       </div>

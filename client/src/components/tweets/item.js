@@ -34,7 +34,7 @@ const TweetItem = ({ tweet, uid }) => {
   } = tweet;
 
   console.log(uid != null);
-  let cname = "col-lg-4 col-md-6 col-sm-6  col-xs-12 placeItem ";
+  let cname = "col-lg-12 col-md-12 col-sm-12  col-xs-12 placeItem ";
   if (uid != null) cname = "col-lg-12 col-md-12 col-sm-12  col-xs-12 placeItem";
   let cimage = "image";
   if (uid != null) cimage = "img-lg";
@@ -52,7 +52,7 @@ const TweetItem = ({ tweet, uid }) => {
         {uid ? (
           <div className="chat-text">
             <div className="author-line">
-              <AuthorDetail author={author} />
+              <AuthorDetail author={author} type="tweet" />
               <span className="chat-date">{displayDate(createdAt)}</span>
               <br className="mobile" />
               <Link to={`/tweets/query/tag/${tag}`} className=" tag-link">

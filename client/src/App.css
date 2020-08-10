@@ -9,12 +9,17 @@ body {
 .place-detail-wrapper {
   margin: 0 15px;
 }
-#profile,
+
 #detail,
 .edit-tweet {
   background: #fff;
 }
 #profile {
+  background: #222;
+  color: #ccc;
+}
+#profile-cmds {
+  margin-left: 60px;
 }
 .useritem {
   margin-bottom: 15px;
@@ -23,10 +28,12 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: #222;
+  color: #fff;
+  /* border: 2px solid #222; */
 }
 .useritem a:hover {
-  background: yellow;
+  /* border: 2px solid yellow; */
 }
 .user-page {
   background: #333;
@@ -41,9 +48,10 @@ button {
   color: #fff;
 }
 .tweet-cnt {
-  margin-left: 5px;
-  font-size: 14px;
-  color: #444;
+  margin-top: 10px;
+  margin-left: 0px;
+  font-size: 18px;
+  color: #aaa;
 }
 .primary {
   background: rgb(187, 13, 13);
@@ -71,6 +79,10 @@ button {
 }
 .categories-wrapper {
   padding: 15px;
+}
+.categories-wrapper h3 {
+  color: #ccc;
+  margin-bottom: 20px;
 }
 .backdrop {
   position: fixed;
@@ -187,18 +199,18 @@ nav .navbar {
 .page-wrapper {
   margin-top: 0px;
 }
-.content h3 {
+.content h3,
+.content h4 {
   color: #ccc;
   padding-top: 15px;
+  margin-left: 15px;
 }
 .content {
   min-height: 200px;
   min-width: 290px;
   padding: 0;
 }
-.content h3 {
-  margin-left: 15px;
-}
+
 .backlink {
   display: block;
   padding: 10px 0 20px 0;
@@ -208,14 +220,13 @@ nav .navbar {
 }
 .Rsidebar {
   padding: 0px;
-  background: #222;
   min-height: 300px;
   /* margin-top: 40px; */
 }
 .Lsidebar {
   /* margin-top: 40px; */
   padding: 0px;
-  background: #222;
+  /* background: #222; */
 }
 .noborder {
   border: none;
@@ -319,15 +330,11 @@ textarea {
 }
 .place-card {
   min-height: 160px;
-  margin: 15px;
-}
-.user-item-card {
-  height: 160px;
-}
-.place-card {
+  margin: 10px 25px;
   background: #fff;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 }
+
 .user-item-card {
   padding: 15px 0;
   height: 100px;
@@ -356,7 +363,7 @@ textarea {
 }
 .placeItem .image {
   width: 100%;
-  height: 100px;
+  height: 200px;
   background-position: center !important;
   background-size: cover !important;
   margin: 0;
@@ -403,7 +410,7 @@ textarea {
   float: left;
   height: 20px;
   font-size: 16px;
-  color: #111;
+  color: #fff;
   line-height: 1em;
 }
 .email-font {
@@ -413,6 +420,12 @@ textarea {
 .username-font {
   font-size: 16px;
   margin-bottom: 10px;
+  color: #cccc;
+}
+.tweetauth-font {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #111;
 }
 .author-wrapper {
   padding-top: 3px;
@@ -616,7 +629,12 @@ textarea {
   color: red;
   background: #fff;
 }
-
+.btnFlat {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  padding: 2px 10px;
+}
 .chat-date {
   color: gray;
   font-size: 12px;
@@ -633,11 +651,12 @@ ul li {
 .desktop-categories {
   display: block;
 }
+
 .tweet-author-wrapper {
 }
 .chat-text {
   font-size: 14px;
-  padding: 10px 15px;
+  padding: 10px 15px 0 15px;
   color: #111;
   margin: 0;
   line-height: 1em;
@@ -759,6 +778,10 @@ a.tag-link {
   padding: 10px;
   margin: 0;
 }
+.userlinks li button {
+  padding: 10px;
+  font-size: 20px;
+}
 .userlinks li a,
 .userlinks li a:visited,
 .userlinks li a:hover,
@@ -766,6 +789,10 @@ a.tag-link {
 .card-user {
   color: #ccc;
   text-decoration: none;
+  font-size: 18px;
+}
+.card-user {
+  padding: 20px 10px;
 }
 .user-page .username {
   font-size: 18px;
@@ -816,6 +843,9 @@ a.tag-link {
 .desk {
   display: block;
 }
+.tablet {
+  display: none;
+}
 .btnFollow {
   float: right;
   width: 90px;
@@ -829,9 +859,10 @@ a.tag-link {
 }
 ul.category-nav li {
   margin: 0;
+  margin: 10px 0;
 }
 ul.category-nav li a {
-  font-size: 16px;
+  font-size: 18px;
   margin: 0;
 }
 @media (min-width: 991px) and (max-width: 1000px) {
@@ -847,7 +878,9 @@ ul.category-nav li a {
   .desk {
     display: block;
   }
-
+  .tablet {
+    display: block;
+  }
   .navbar-right {
     margin-top: 5px;
     width: 400px;
@@ -885,7 +918,6 @@ ul.category-nav li a {
   }
   .Lsidebar {
     display: block;
-    background: #222;
   }
   ul.userlinks li,
   .card-user {
@@ -916,6 +948,9 @@ ul.category-nav li a {
     display: none;
   }
   .desk {
+    display: block;
+  }
+  .tablet {
     display: block;
   }
 }
@@ -976,9 +1011,10 @@ ul.category-nav li a {
   .categories-wrapper {
     padding: 15px;
   }
-  .categories-wrapper h4 {
+  .categories-wrapper h3 {
     margin-left: 0;
     margin-top: 20px;
+    color: #ccc;
   }
   .navbar-header {
     width: 60px;
@@ -1170,6 +1206,10 @@ ul.category-nav li a {
   .desk {
     display: block;
   }
+
+  .tablet {
+    display: block;
+  }
 }
 
 @media (max-width: 500px) {
@@ -1257,6 +1297,9 @@ ul.category-nav li a {
     display: none;
   }
   .mobile {
+    display: block;
+  }
+  .tablet {
     display: block;
   }
   .desk {

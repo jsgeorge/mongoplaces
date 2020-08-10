@@ -35,7 +35,7 @@ const LikeTweetButton = ({ id, uid, userlikes }) => {
   const AddLike = async () => {
     try {
       console.log("Adding 1 to likes");
-      const response = await axios.post(`/chats/like?id=${id}&uid=${uid}`);
+      const response = await axios.post(`/places/like?id=${id}&uid=${uid}`);
       // dispatch({
       //   type: "LIKE_TWEET",
       //   payload: response.data,
@@ -47,7 +47,7 @@ const LikeTweetButton = ({ id, uid, userlikes }) => {
   const SubLike = async () => {
     try {
       console.log("Subtracting 1 from likes");
-      const response = await axios.post(`/chats/dislike?id=${id}&uid=${uid}`);
+      const response = await axios.post(`/places/dislike?id=${id}&uid=${uid}`);
       // dispatch({
       //   type: "DISLIKE_TWEET",
       //   payload: response.data,

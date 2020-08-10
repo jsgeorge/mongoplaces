@@ -20,7 +20,7 @@ export default function TweetQuery({ match }) {
 
     try {
       const { qrytype, name, id } = match.params;
-
+      console.log(match.params.qrytype);
       if (qrytype == "category") {
         setHeader(name);
         filters = { filters: [{ category: id }] };
@@ -31,7 +31,7 @@ export default function TweetQuery({ match }) {
       }
       if (qrytype == "srchstr") {
         setHeader(name);
-        filters = { filters: [{ text: id }] };
+        filters = { filters: [{ name: id }] };
       }
       //filters = [{ qrytype: id}];
 
@@ -59,20 +59,26 @@ export default function TweetQuery({ match }) {
   return (
     <div className="page-wraper">
       <div className="row">
-        <div className="col-lg-2 col-md-2  col-sm-3 col-xs-3 Lsidebar">
+        <div className="col-lg-2 col-md-2 col-sm-3 col-xs-3 Lsidebar">
           <UserCard />
         </div>
         <div className="col-lg-7 col-md-7 col-sm-8 col-xs-9 content">
           <div className="content-wrapper">
-            <Link to="/tweets">
+            {/* <Link to="/tweets">
               <FontAwesomeIcon
                 icon={faLongArrowAltLeft}
                 size="lg"
                 style={{ color: "red" }}
               />
-            </Link>
+            </Link> */}
           </div>
           <div className="tweets-wrapper">
+            <h3>
+              {" "}
+              {match.params.qrytype != "srchstr"
+                ? match.params.name
+                : "search: " + match.params.id}
+            </h3>
             {state.places &&
             state.places.articles &&
             state.places.articles.length > 0 ? (
@@ -84,8 +90,9 @@ export default function TweetQuery({ match }) {
             )}
           </div>
         </div>
+
         <div className="col-lg-3 col-md-3 col-sm-2 col-xs-4 Rsidebar">
-          <Categories />
+          <Categories page="query" />
         </div>
       </div>
     </div>

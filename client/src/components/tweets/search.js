@@ -23,7 +23,7 @@ const SearchTweets = () => {
     }
   };
   const qrytype = "srchstr";
-  const name = "text";
+  const name = "name";
   return (
     <div className="search-form">
       <input
@@ -31,7 +31,10 @@ const SearchTweets = () => {
         placeholder="Search places .. "
         onChange={(e) => setSrchStr(e.target.value)}
       />
-      <Link to={`tweets/query/${qrytype}/${name}/${srchStr}`}>
+      <Link
+        to={`/tweets/query/${qrytype}/name/${srchStr.charAt(0).toUpperCase() +
+          srchStr.slice(1)}`}
+      >
         {" "}
         <FontAwesomeIcon icon={faSearch} size="lg" className="primary-clr" />
       </Link>

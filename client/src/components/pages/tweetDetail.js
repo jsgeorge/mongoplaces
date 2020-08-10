@@ -61,7 +61,7 @@ export default function TweetDetailPage({ match }) {
         <div className="col-lg-2 col-md-2  col-sm-3 col-xs-3 Lsidebar">
           {user ? <UserCard user={user} /> : null}
         </div>
-        <div className="col-lg-8 col-md-8 col-sm-8 col-xs-9 content">
+        <div className="col-lg-7 col-md-8 col-sm-8 col-xs-9 content">
           <h3>
             <Link to="/tweets">
               {" "}
@@ -82,7 +82,7 @@ export default function TweetDetailPage({ match }) {
           <TweetDetail place={state.place} />
         </div>
 
-        <div className="col-lg-2 col-md-2 col-sm-2 col-xs-4 Rsidebar">
+        <div className="col-lg-3 col-md-2 col-sm-2 col-xs-4 Rsidebar">
           <div className="desktop-categories">
             <Categories />
           </div>

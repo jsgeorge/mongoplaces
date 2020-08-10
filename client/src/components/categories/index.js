@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import { CategoryContext } from "../../context/category-context";
 import LoadingSpinner from "../utils/LoadingSpinner";
 
-const Categories = () => {
+const Categories = ({ page }) => {
   const [state, dispatch] = useContext(CategoryContext);
   const [error, setError] = useState("");
   const [isLoading, setisLoading] = useState(true);
@@ -34,10 +34,10 @@ const Categories = () => {
 
   return (
     <div className="categories-wrapper">
-      <h4>
+      <h3>
         {" "}
         <strong>Explore Categories</strong>{" "}
-      </h4>
+      </h3>
       <div className="category-card">
         <div>
           {isLoading && (
@@ -50,11 +50,17 @@ const Categories = () => {
             <ul className="category-nav">
               {state.categories.map((ctgry) => (
                 <li key={ctgry._id}>
-                  <Link
-                    to={`tweets/query/${qrytype}/${ctgry.name}/${ctgry._id}`}
-                  >
-                    {ctgry.name}
-                  </Link>
+                  {page == "query" ? (
+                    <Link to={`/tweets/${qrytype}/${ctgry.name}/${ctgry._id}`}>
+                      {ctgry.name}
+                    </Link>
+                  ) : (
+                    <Link
+                      to={`/tweets/query/${qrytype}/${ctgry.name}/${ctgry._id}`}
+                    >
+                      {ctgry.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

@@ -49,7 +49,7 @@ const NewCommentForm = ({ id, user }) => {
         //   payload: response.data,
         // })
         const response = await axios
-          .post(`/chats/comment?id=${id}`, newComment)
+          .post(`/places/comment?id=${id}`, newComment)
           .then((res) => {
             setComment("");
             setFormError(false);

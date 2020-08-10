@@ -24,7 +24,7 @@ router.post("/view", (req, res) => {
   let order = "desc";
   let sortBy = "createdAt";
   let limit = 1000;
-
+  if (!findArgs) limit = 5;
   Place.find(findArgs)
     .sort([["createdAt", "desc"]])
     .limit(limit)
@@ -76,12 +76,11 @@ router.post("/article", auth, (req, res) => {
 
 router.post("/comment", auth, (req, res) => {
   console.log(req.body);
-  const name = req.body.name;
-  const user = req.body.user;
+  const text = req.body.text;
   const uid = req.userid;
   Place.findOneAndUpdate(
     { _id: req.query.id },
-    { $push: { comments: { uid: uid, user: user, name: name } } },
+    { $push: { comments: { uid: uid, text: text } } },
     { new: true },
     (err, doc) => {
       if (err)

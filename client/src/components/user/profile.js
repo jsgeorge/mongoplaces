@@ -117,15 +117,17 @@ const ProfilePage = ({ match }) => {
               <div className="section-wrapper" id="profile">
                 <div>{displayUserProfile()}</div>
                 {!match.params.id ? (
-                  <span>
+                  <span id="profile-cmds">
                     <button
-                      className="btn btn-default btnDefault btn-sm"
-                      style={{ color: "#111" }}
+                      className="btn btn-default btnFlat btn-sm"
                       onClick={() => onLogout()}
                     >
                       Logout
                     </button>{" "}
-                    <Link to="/user/edit" className="btn btn-danger btn-sm">
+                    <Link
+                      to="/user/edit"
+                      className="btn btn-danger btnFlat btn-sm"
+                    >
                       Edit
                     </Link>
                   </span>
@@ -183,6 +185,11 @@ const ProfilePage = ({ match }) => {
               </div>
             ) : null} */}
             </div>
+          </div>
+        </div>
+        <div className="col-lg-3 col-md-2 col-sm-2 col-xs-4 Rsidebar">
+          <div className="desktop-categories">
+            <Categories />
           </div>
         </div>
       </div>

@@ -108,7 +108,7 @@ const Header = () => {
                 </span>
               ) : (
                 <Link to="/auth/signin">
-                  <span>Signin</span>
+                  <span className="btn-clr">Signin</span>
                 </Link>
               )}
             </div>

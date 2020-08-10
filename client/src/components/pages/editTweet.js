@@ -8,6 +8,7 @@ import EditPlaceForm from "../tweets/editForm.js";
 import UserCard from "../user/card";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Categories from "../categories";
 
 const EditplacePage = ({ match }) => {
   const { user, setuser, isloggedin } = useContext(UserContext);
@@ -70,7 +71,11 @@ const EditplacePage = ({ match }) => {
             )}
           </div>
         </div>
-        <div className="col-lg-3 col-md-3 col-sm-2 col-xs-4 Rsidebar"></div>
+        <div className="col-lg-3 col-md-2 col-sm-2 col-xs-4 Rsidebar">
+          <div className="desktop-categories">
+            <Categories />
+          </div>
+        </div>
       </div>
     </div>
   );

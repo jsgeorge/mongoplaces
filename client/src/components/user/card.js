@@ -33,6 +33,9 @@ const UserCard = () => {
               <Link to="/tweets/search">Explore</Link>
             </li>
             <li>
+              <Link to="/users">Users</Link>
+            </li>
+            <li>
               <Link to="/tweets/Lists/">Lists</Link>
             </li>
             <li>
@@ -47,9 +50,6 @@ const UserCard = () => {
             <li>
               <Link to="/tweets/Messges/">Bookmarks</Link>
             </li>
-            <li>
-              <Link to="/users">Following</Link>
-            </li>
           </ul>
 
           <div className="card-user">
@@ -62,8 +62,7 @@ const UserCard = () => {
             </span>
             <div>
               <button
-                className="btn btn-default btn-sm"
-                style={{ marginTop: "20px", color: "#111" }}
+                className="btn btn-default btnFlat btn-sm"
                 onClick={() => onLogout()}
               >
                 Logout

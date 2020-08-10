@@ -14,8 +14,6 @@ const EditPlaceForm = ({ item }) => {
   const user = useContext(UserContext);
   const [dispatch] = useContext(PlaceContext);
   const [errors, setErrors] = useState({});
-  const [tweet, setTweet] = useState("");
-  const [category, setCategory] = useState("");
   const [edited, setEdited] = useState({
     name: item.name,
     tag: item.tag,
@@ -87,12 +85,14 @@ const EditPlaceForm = ({ item }) => {
       let updTweet = {
         ...item,
         name: edited.name,
+        city: edited.city,
+        state: edited.state,
         tag: edited.tag,
       };
       console.log(updTweet);
       try {
         const response = await axios
-          .post(`/chats/update?id=${item._id}`, updTweet)
+          .post(`/places/update?id=${item._id}`, updTweet)
           .then((res) => {
             setRedirect(true);
           })

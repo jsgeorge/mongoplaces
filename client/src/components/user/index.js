@@ -10,9 +10,6 @@ export default function UserPage() {
 
   const onLogout = () => {
     localStorage.clear();
-    // dispatch({
-    //   type: "LOGOUT_USER",
-    // });
     setuser({});
     setisloggedin(false);
     setRedirect(true);
@@ -46,6 +43,9 @@ export default function UserPage() {
             <Link to="/tweets/search">Explore</Link>
           </li>
           <li>
+            <Link to="/users">Users</Link>
+          </li>
+          <li>
             <Link to="/tweets/Lists/">Lists</Link>
           </li>
           <li>
@@ -61,7 +61,12 @@ export default function UserPage() {
             <Link to="/tweets/Fvorites/">Bookmarks</Link>
           </li>
           <li>
-            <Link to="/users">Following</Link>
+            <button
+              className="btn btn-default btnFlat btn-sm"
+              onClick={() => onLogout()}
+            >
+              Logout
+            </button>{" "}
           </li>
         </ul>
       </div>

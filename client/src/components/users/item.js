@@ -54,7 +54,7 @@ const UserItem = ({ cuser }) => {
   const { name, lastname, email, username, images } = cuser;
 
   return (
-    <div className="col-lg-4 col-md-6 col-sm-8 col-xs-10 useritem">
+    <div className="col-lg-6 col-md-6 col-sm-8 col-xs-10 useritem">
       <Link to={`/user/${cuser._id}/profile`}>
         <div className="user-item-card">
           <div className="card-text">

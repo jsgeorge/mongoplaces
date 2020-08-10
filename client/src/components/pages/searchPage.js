@@ -12,8 +12,18 @@ const SearchPage = () => {
         </div>
         <div className="col-lg-7 col-md-7 col-sm-8 col-xs-9 content">
           <h3>Explore Places</h3>
-          <div id="srchpage">
+          <div className="tablet" id="srchpage">
             <SearchTweets />
+            <Categories />
+          </div>
+          <div className="explore">
+            <h4>By Country</h4>
+            <h4>By State</h4>
+            <h4>By City</h4>
+          </div>
+        </div>
+        <div className="col-lg-3 col-md-2 col-sm-2 col-xs-4 Rsidebar">
+          <div className="desktop-categories">
             <Categories />
           </div>
         </div>
